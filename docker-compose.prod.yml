@@ -18,7 +18,7 @@ services:
 
   web:
     restart: unless-stopped
-    image: my-app/bot:latest
+    image: my-app/web:latest
     env_file:
       - ./.env
     deploy:
