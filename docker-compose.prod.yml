@@ -1,0 +1,30 @@
+services:
+  proxy:
+    container_name: nginx
+    image: docker.io/jc21/nginx-proxy-manager:latest
+    restart: unless-stopped
+    ports:
+      - '80:80'
+      - '81:81'
+      - '443:443'
+    volumes:
+      - .docker/nginx/data:/data
+      - .docker/letsencrypt:/etc/letsencrypt
+    deploy:
+      resources:
+        limits:
+          cpus: "1"
+          memory: 200mb
+
+  web:
+    restart: unless-stopped
+    image: my-app/bot:latest
+    env_file:
+      - ./.env
+    deploy:
+      mode: replicated
+      replicas: 2
+      resources:
+        limits:
+          cpus: "1"
+          memory: 250mb
