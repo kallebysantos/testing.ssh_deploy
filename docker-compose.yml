@@ -1,0 +1,15 @@
+services:
+  web:
+    restart: unless-stopped
+    build:
+      context: ./src
+      dockerfile: ./build/Dockerfile.web
+    ports:
+      - 8000:8000
+    deploy:
+      mode: replicated
+      replicas: 1
+      resources:
+        limits:
+          cpus: "1"
+          memory: 250mb
